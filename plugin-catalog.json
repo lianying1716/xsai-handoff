@@ -1,0 +1,50 @@
+{
+  "plugin_id": "xsai-handoff",
+  "kind": "skill",
+  "category": "development",
+  "display_name_zh": "星算会话交接",
+  "display_name_en": "XSAI Session Handoff",
+  "summary_zh": "长对话要换会话时，把任务目标、关键决策、已完成、剩余任务和已知坑整理成一份交接文档，新会话说一句「继续上次」就能接上。",
+  "usage_zh": "说「交接一下」或「压缩上下文」存一份；在新会话说「继续上次」或「接续」自动认领最近一份。文档存在本机固定目录，不写进项目仓库。",
+  "source": "xingsuan",
+  "official_badge": "星算官方",
+  "source_url": "https://xsai5.xyz/desktop-plugins.html",
+  "upstream_id": "lianying1716/xsai-handoff",
+  "repository": "lianying1716/xsai-handoff",
+  "version": "0.1.0",
+  "git_ref": "v0.1.0",
+  "compatible_tools": ["codex", "claudecode", "openclaw", "hermes"],
+  "install_payload": {
+    "repo": "lianying1716/xsai-handoff",
+    "ref": "v0.1.0",
+    "path": ".",
+    "files": [
+      "SKILL.md",
+      "scripts/handoff.mjs",
+      "references/handoff-template.md"
+    ]
+  },
+  "runtime_version": "0.1.0",
+  "minimum_node": ">=18",
+  "install_mode": "github_repo_root",
+  "desktop_source_untouched": true,
+  "tags": ["官方", "星算官方", "会话交接", "上下文", "handoff", "上下文压缩"],
+  "icon_url": "/images/desktop/xsai-handoff.png",
+  "facts": {
+    "name": "星算会话交接",
+    "capabilities": [
+      "把当前会话整理成结构化交接文档",
+      "存到本机固定目录，不污染项目仓库",
+      "新会话自动认领最近一份，先匹配当前项目再退回全局",
+      "写入前对凭据和个人信息做脱敏，并可自检"
+    ],
+    "requirements": ["Node.js 18 或更新版本"],
+    "limitations": [
+      "只做单人多会话交接，不负责多 Agent 任务派发",
+      "不替代通用对话总结或记忆检索",
+      "宿主没有命令执行能力时无法自动认领"
+    ],
+    "official_badge": "星算官方",
+    "distribution": "通过 GitHub 仓库 lianying1716/xsai-handoff 的固定版本安装；仅复制技能文件，不执行仓库脚本"
+  }
+}

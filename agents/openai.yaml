@@ -1,0 +1,6 @@
+interface:
+  display_name: "星算会话交接"
+  short_description: "长会话存成交接文档，新会话自动认领最近一份继续"
+  default_prompt: "使用 $xsai-handoff 把当前会话交接给下一个会话，或认领最近一份交接继续工作。"
+policy:
+  allow_implicit_invocation: true
