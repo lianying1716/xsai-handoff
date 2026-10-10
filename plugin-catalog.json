@@ -11,12 +11,17 @@
   "source_url": "https://xsai5.xyz/desktop-plugins.html",
   "upstream_id": "lianying1716/xsai-handoff",
   "repository": "lianying1716/xsai-handoff",
-  "version": "0.1.0",
-  "git_ref": "v0.1.0",
-  "compatible_tools": ["codex", "claudecode", "openclaw", "hermes"],
+  "version": "0.1.1",
+  "git_ref": "v0.1.1",
+  "compatible_tools": [
+    "codex",
+    "claudecode",
+    "openclaw",
+    "hermes"
+  ],
   "install_payload": {
     "repo": "lianying1716/xsai-handoff",
-    "ref": "v0.1.0",
+    "ref": "v0.1.1",
     "path": ".",
     "files": [
       "SKILL.md",
@@ -24,11 +29,18 @@
       "references/handoff-template.md"
     ]
   },
-  "runtime_version": "0.1.0",
+  "runtime_version": "0.1.1",
   "minimum_node": ">=18",
   "install_mode": "github_repo_root",
   "desktop_source_untouched": true,
-  "tags": ["官方", "星算官方", "会话交接", "上下文", "handoff", "上下文压缩"],
+  "tags": [
+    "官方",
+    "星算官方",
+    "会话交接",
+    "上下文",
+    "handoff",
+    "上下文压缩"
+  ],
   "icon_url": "/images/desktop/xsai-handoff.png",
   "facts": {
     "name": "星算会话交接",
@@ -38,7 +50,9 @@
       "新会话自动认领最近一份，先匹配当前项目再退回全局",
       "写入前对凭据和个人信息做脱敏，并可自检"
     ],
-    "requirements": ["Node.js 18 或更新版本"],
+    "requirements": [
+      "Node.js 18 或更新版本"
+    ],
     "limitations": [
       "只做单人多会话交接，不负责多 Agent 任务派发",
       "不替代通用对话总结或记忆检索",
