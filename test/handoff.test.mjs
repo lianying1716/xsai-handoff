@@ -157,3 +157,37 @@ test("scanSecrets leaves a clean handoff alone", () => {
 test("scanSecrets does not flag ordinary numbers", () => {
   assert.deepEqual(scanSecrets("QPS 上限 20，超时 3000ms，端口 8080"), []);
 });
+
+test("a malformed created date is treated as corrupt, not authoritative", () => {
+  const dir = tempDir();
+  const project = makeProject("demo");
+  createHandoffFile({ dir, topic: "real", cwd: project, now: new Date("2026-10-09T00:00:00Z") });
+  fs.writeFileSync(
+    path.join(dir, "zz-plan.md"),
+    '---\ncreated: "not-a-date"\ntopic: junk\n---\n\n# just a note\n',
+  );
+  const entries = listHandoffs(dir);
+  const junk = entries.find((e) => e.topic === "junk");
+  assert.equal(junk.valid, false, "unparseable created must be flagged invalid");
+  // Even with a fresher mtime, the corrupt file must not be served as latest.
+  assert.equal(pickLatest(entries, project).entry.topic, "real");
+});
+
+test("pickLatest ignores stray non-handoff markdown in the store", () => {
+  const dir = tempDir();
+  const project = makeProject("demo");
+  createHandoffFile({ dir, topic: "real", cwd: project, now: new Date("2026-10-01T00:00:00Z") });
+  // A stray README with no front matter, written later, must not win.
+  fs.writeFileSync(path.join(dir, "2026-10-09-notes.md"), "# 随手记\nnothing to do with handoff\n");
+  const picked = pickLatest(listHandoffs(dir), project);
+  assert.equal(picked.entry.topic, "real");
+  assert.equal(picked.entry.valid, true);
+});
+
+test("pickLatest still returns something when only malformed files exist", () => {
+  const dir = tempDir();
+  fs.writeFileSync(path.join(dir, "a.md"), "# loose note\n");
+  const picked = pickLatest(listHandoffs(dir), "/tmp");
+  assert.ok(picked, "must not return null when files exist");
+  assert.equal(picked.entry.valid, false);
+});

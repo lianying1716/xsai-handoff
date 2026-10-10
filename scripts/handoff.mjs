@@ -179,10 +179,20 @@ export function listHandoffs(dir, { fsImpl = fs } = {}) {
       continue;
     }
     const fm = parseFrontMatter(text) || {};
+    // A handoff must carry front matter (or the marker heading). A stray
+    // README.md dropped into the store must never be served as "latest".
+    const looksLikeHandoff = Boolean(fm.created || fm.topic || fm.project) || text.includes("# 会话交接");
+    // Only trust `created` when it parses; a malformed value must not outrank
+    // every real handoff in the string sort below.
+    const parsedCreated = fm.created ? Date.parse(fm.created) : NaN;
+    const createdAt = Number.isFinite(parsedCreated) ? new Date(parsedCreated).toISOString() : null;
+    // A file claiming a `created` we cannot parse is corrupt, not authoritative.
+    const createdOk = !fm.created || Number.isFinite(parsedCreated);
     entries.push({
       file: name,
       path: filePath,
-      created: fm.created || stat.mtime.toISOString(),
+      created: createdAt || stat.mtime.toISOString(),
+      valid: looksLikeHandoff && createdOk,
       topic: fm.topic || null,
       project: fm.project || null,
       cwd: fm.cwd || null,
@@ -190,7 +200,8 @@ export function listHandoffs(dir, { fsImpl = fs } = {}) {
       gitRemote: fm.git_remote || null,
     });
   }
-  entries.sort((a, b) => String(b.created).localeCompare(String(a.created)));
+  // Sort by real time, not string, so mixed/odd formats stay correctly ordered.
+  entries.sort((a, b) => Date.parse(b.created) - Date.parse(a.created));
   return entries;
 }
 
@@ -209,8 +220,11 @@ export function matchesProject(entry, cwd) {
 
 export function pickLatest(entries, cwd) {
   if (!entries.length) return null;
-  const matched = entries.filter((entry) => matchesProject(entry, cwd));
-  const pool = matched.length ? matched : entries;
+  // Prefer well-formed handoffs; only fall back to junk if that is all there is.
+  const usable = entries.filter((entry) => entry.valid !== false);
+  const base = usable.length ? usable : entries;
+  const matched = base.filter((entry) => matchesProject(entry, cwd));
+  const pool = matched.length ? matched : base;
   return { entry: pool[0], scope: matched.length ? "project" : "global" };
 }
 
