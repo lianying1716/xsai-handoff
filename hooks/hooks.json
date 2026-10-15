@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "^auto$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${PLUGIN_ROOT}/hooks/precompact-guard.mjs\"",
+            "commandWindows": "node \"${PLUGIN_ROOT}/hooks/precompact-guard.mjs\"",
+            "timeout": 10,
+            "statusMessage": "上下文快满，正在询问用户"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -11,8 +11,8 @@
   "source_url": "https://xsai5.xyz/desktop-plugins.html",
   "upstream_id": "lianying1716/xsai-handoff",
   "repository": "lianying1716/xsai-handoff",
-  "version": "0.1.1",
-  "git_ref": "v0.1.1",
+  "version": "0.2.0",
+  "git_ref": "v0.2.0",
   "compatible_tools": [
     "codex",
     "claudecode",
@@ -21,17 +21,19 @@
   ],
   "install_payload": {
     "repo": "lianying1716/xsai-handoff",
-    "ref": "v0.1.1",
-    "path": ".",
+    "ref": "v0.2.0",
+    "path": "skills/xsai-handoff",
     "files": [
       "SKILL.md",
+      "agent-directive.md",
       "scripts/handoff.mjs",
-      "references/handoff-template.md"
+      "references/handoff-template.md",
+      "agents/openai.yaml"
     ]
   },
-  "runtime_version": "0.1.1",
+  "runtime_version": "0.2.0",
   "minimum_node": ">=18",
-  "install_mode": "github_repo_root",
+  "install_mode": "github_skill_dir",
   "desktop_source_untouched": true,
   "tags": [
     "官方",

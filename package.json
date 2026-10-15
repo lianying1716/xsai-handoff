@@ -1,6 +1,6 @@
 {
   "name": "@xingsuan/xsai-handoff",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": false,
   "type": "module",
   "description": "星算会话交接 Skill：长会话存成结构化交接文档，新会话自动认领最近一份继续。",
@@ -8,7 +8,7 @@
     "node": ">=18"
   },
   "bin": {
-    "xsai-handoff": "scripts/handoff.mjs"
+    "xsai-handoff": "skills/xsai-handoff/scripts/handoff.mjs"
   },
   "scripts": {
     "test": "node --test test/"

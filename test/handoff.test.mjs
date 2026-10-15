@@ -14,7 +14,7 @@ import {
   matchesProject,
   pickLatest,
   scanSecrets,
-} from "../scripts/handoff.mjs";
+} from "../skills/xsai-handoff/scripts/handoff.mjs";
 
 function tempDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), "xsai-handoff-test-"));

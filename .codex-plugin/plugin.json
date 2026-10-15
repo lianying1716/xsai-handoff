@@ -1,0 +1,24 @@
+{
+  "name": "xsai-handoff",
+  "version": "0.2.0",
+  "description": "星算会话交接：长会话存成交接文档，并在上下文快满、即将自动压缩前停下来先询问用户。",
+  "author": {
+    "name": "Xingsuan"
+  },
+  "homepage": "https://xsai5.xyz/",
+  "repository": "https://github.com/lianying1716/xsai-handoff",
+  "license": "MIT",
+  "keywords": ["handoff", "context", "compaction", "session", "xsai"],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json",
+  "interface": {
+    "displayName": "星算会话交接",
+    "shortDescription": "上下文快满时先问你，再决定怎么交接",
+    "longDescription": "把当前会话整理成结构化交接文档，新会话说一句「继续上次」就能接上。上下文接近上限、Codex 即将自动压缩历史之前，会先停下来询问你，而不是静默丢弃细节。",
+    "developerName": "星算",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://xsai5.xyz/",
+    "brandColor": "#0169CC"
+  }
+}
